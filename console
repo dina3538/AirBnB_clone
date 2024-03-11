@@ -39,7 +39,15 @@ class HBNBCommand(cmd.Cmd):
     """
 
     prompt = "(hbnb) "
-    __classes = {"BaseModel", "User", "State", "City", "Place", "Amenity", "Review"}
+    __classes = {
+        "BaseModel",
+        "User",
+        "State",
+        "City",
+        "Place",
+        "Amenity",
+        "Review"
+    }
 
     def emptyline(self):
         """Do nothing upon receiving an empty line."""
@@ -47,8 +55,13 @@ class HBNBCommand(cmd.Cmd):
 
     def default(self, arg):
         """Default behavior for cmd module when input is invalid"""
-        argdict = {"all": self.do_all, "show": self.do_show, "destroy": self.do_destroy, "count": self.do_count,
-                   "update": self.do_update}
+        argdict = {
+            "all": self.do_all,
+            "show": self.do_show,
+            "destroy": self.do_destroy,
+            "count": self.do_count,
+            "update": self.do_update
+        }
         match = re.search(r"\.", arg)
         if match is not None:
             argl = [arg[:match.span()[0]], arg[match.span()[1]:]]
@@ -173,6 +186,7 @@ class HBNBCommand(cmd.Cmd):
             except NameError:
                 print("** value missing **")
                 return False
+
         if len(argl) == 4:
             obj = objdict["{}.{}".format(argl[0], argl[1])]
             if argl[2] in obj.__class__.__dict__.keys():
@@ -194,4 +208,3 @@ class HBNBCommand(cmd.Cmd):
 
 if __name__ == "__main__":
     HBNBCommand().cmdloop()
-
